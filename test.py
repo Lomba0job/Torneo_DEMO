@@ -25,25 +25,18 @@
 #   |------------------------------------------------------------------|
        
 import Osquadra as o
+import Creazione_Tabellone as c
 
 
 def main():
-    name = input("Nome nome squadra 1: ")
-    s1 = o.Oggetto_Squadra(name)
-    name = input("Nome squadra 2: ")
-    s2 = o.Oggetto_Squadra(name)
+    lista_s = []
 
-    associa_nomi(s1)
-    associa_nomi(s2)
+    for i in range(10):
+        nome = "squadra" + str(i)
+        s = o.Oggetto_Squadra(nome)
+        lista_s.append(s)
 
-
-
-def associa_nomi(squadra):
-    print("\n\nSquadra: " + squadra.get_name())
-    name = input("Nome giocaotre 1: ")
-    squadra.add_componente1(name)
-    name = input("Nome giocaotre 2: ")
-    squadra.add_componente2(name)
+    c.Tabellone(len(lista_s), lista_s)
 
 if __name__ == "__main__":
     main()

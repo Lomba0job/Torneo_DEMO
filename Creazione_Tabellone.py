@@ -20,54 +20,30 @@
 #   |------------------------------------------------------------------|
 #   | PROGRMMATORE: Lombardi Michele                                   | 
 #   | DATA CREAZIONE: 15/09/2023                                       |                                     
-#   | DESCRIZIONE FILE: Classe costruzione oggeto squadra              |                         
+#   | DESCRIZIONE FILE: Classe creazione Tabellone                     |                         
 #   |                                                                  |     
 #   |------------------------------------------------------------------|
        
-       
+import random
 
-class Oggetto_Squadra(object):
+class Tabellone(object):
 
-    def __init__(self, str1):
-        self.nome = str1 #ASSOCIATO IL NOME DELLA SQUADRA 
+    def __init__(self, n_gioccatori, lista_squadre):
+        self.numero_giocatori = n_gioccatori
 
-        self.reti_segante = 0 
-        self.reti_subite = 0
-        self.contatore_partiete = 0 
-        self.vittorie = 0 
-        
-    def add_componente1(self, str1):
-        self.giocatore1 = str1
+        self.tabellone_dx =  []
+        self.tabellone_sx = []
 
-    def add_componente2(self, str1):
-        self.giocatore2 = str1
+        random.shuffle(lista_squadre)  # Mescola la lista in modo casuale
+        meta = len(lista_squadre) // 2  # Trova l'indice di metà della lista mescolata
 
-    def add_partita(self):
-        self.contatore_partiete += 1
+        # Dividi la lista mescolata in due parti
+        self.tabellone_dx = lista_squadre[:meta]
+        self.tabellone_sx = lista_squadre[meta:]
 
-    def add_reti_segnate(self, n):
-        self.reti_segante += n
-
-    def add_reti_subite(self, n):
-        self.reti_subite += n
-
-    def get_name(self):
-        return self.nome
-
-    def get_stat(self):
-        
-        gol_segnati_partita = self.reti_segante / self.contatore_partiete
-        gol_subiti_partita = self.reti_subite / self.contatore_partiete
-        perc_vittoria = self.vittorie / self.contatore_partiete * 100
-
-        return gol_segnati_partita, gol_subiti_partita, perc_vittoria
-    
-    def __str__(self):
-        return f"{self.nome}"
-
-
-    
-       
-       
-       
-
+        print("destra: ")
+        for item in self.tabellone_dx:
+            print(item)
+        print("sinistra: ")
+        for item in self.tabellone_sx:
+            print(item)
