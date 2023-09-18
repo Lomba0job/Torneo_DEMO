@@ -31,12 +31,13 @@ import Creazione_Tabellone as c
 def main():
     lista_s = []
 
-    for i in range(10):
+    for i in range(12):
         nome = "squadra" + str(i)
         s = o.Oggetto_Squadra(nome)
         lista_s.append(s)
 
-    c.Tabellone(len(lista_s), lista_s)
+    t = c.Tabellone(len(lista_s), lista_s)
+    t.avvia_torneo()
 
 if __name__ == "__main__":
     main()

@@ -25,25 +25,67 @@
 #   |------------------------------------------------------------------|
        
 import random
+import math 
+
+import Partita as p
 
 class Tabellone(object):
 
     def __init__(self, n_gioccatori, lista_squadre):
-        self.numero_giocatori = n_gioccatori
+        self.numero_squadre = n_gioccatori
 
-        self.tabellone_dx =  []
-        self.tabellone_sx = []
+        
 
         random.shuffle(lista_squadre)  # Mescola la lista in modo casuale
         meta = len(lista_squadre) // 2  # Trova l'indice di metà della lista mescolata
 
-        # Dividi la lista mescolata in due parti
-        self.tabellone_dx = lista_squadre[:meta]
-        self.tabellone_sx = lista_squadre[meta:]
+        self.numero_partite = self.numero_squadre - 1
+        self.numero_fasi =  math.ceil(math.log(self.numero_partite, 2)) #arrotondo in eccesso il log di 2 di numero partite 
 
-        print("destra: ")
-        for item in self.tabellone_dx:
-            print(item)
-        print("sinistra: ")
-        for item in self.tabellone_sx:
-            print(item)
+        self.tabellone_dx =  [[] for _ in range(self.numero_fasi)]      #creo array di liste pe quanti fasi ci sono
+        self.tabellone_sx = [[] for _ in range(self.numero_fasi)]       #creo array di liste pe quanti fasi ci sono
+
+        # Dividi la lista mescolata in due parti
+        self.tabellone_dx[0] = lista_squadre[:meta]         #fase 1 lista squadre
+        self.tabellone_sx[0] = lista_squadre[meta:]         #fase 1 lista squadre
+
+
+    def avvia_torneo(self):
+        for i in range(self.numero_fasi-1):
+            self.fase(i)
+
+        f = p.Partita(self.tabellone_dx[self.numero_fasi-1][0],self.tabellone_sx[self.numero_fasi-1][0])
+        print(f)
+        print("FIN£ TORNEO")
+            
+    def fase(self, n):
+        s = 0
+        print("\n---\nFase Torne numero: " + str(n))
+
+        for i in range(len(self.tabellone_dx[n]) // 2):
+
+            pd = p.Partita(self.tabellone_dx[n][s],self.tabellone_dx[n][s+1])
+            ps = p.Partita(self.tabellone_sx[n][s],self.tabellone_sx[n][s+1])
+
+            print("\ngirone destra:")
+            print(pd)
+            pd.avvia()
+            print("\ngirone sinistra:")
+            print(ps)
+            ps.avvia()
+
+            
+
+            s = s+2
+        print("\nfine della fase " +str(n)+ "\n---\n")
+        
+        if n != self.numero_fasi-1:
+            for item in self.tabellone_dx[n]:
+                if item.get_state():
+                    self.tabellone_dx[n+1].append(item)
+            for item in self.tabellone_sx[n]:
+                if item.get_state():
+                    self.tabellone_sx[n+1].append(item)
+        else:
+            print("FINALE TORNEO")
+        

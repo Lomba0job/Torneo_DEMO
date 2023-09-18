@@ -20,61 +20,28 @@
 #   |------------------------------------------------------------------|
 #   | PROGRMMATORE: Lombardi Michele                                   | 
 #   | DATA CREAZIONE: 15/09/2023                                       |                                     
-#   | DESCRIZIONE FILE: Classe costruzione oggeto squadra              |                         
+#   | DESCRIZIONE FILE: Classe creazione Partita                       |                         
 #   |                                                                  |     
 #   |------------------------------------------------------------------|
-       
-       
+import random
 
-class Oggetto_Squadra(object):
+class Partita(object):
+    def __init__(self, s1, s2):
+        self.squadra1 = s1
+        self.squadra2 = s2
 
-    def __init__(self, str1):
-        self.nome = str1 #ASSOCIATO IL NOME DELLA SQUADRA 
+    def avvia(self):
+        numero_casuale = random.randint(1, 100)  # Puoi specificare il range desiderato
 
-        self.reti_segante = 0 
-        self.reti_subite = 0
-        self.contatore_partiete = 0 
-        self.vittorie = 0 
-        self.state = True
-        
-    def add_componente1(self, str1):
-        self.giocatore1 = str1
+        # Verifica se il numero è pari o dispari
+        if numero_casuale % 2 == 0:
+            self.squadra1.set_state(False)
+            print("vinto: " + self.squadra2.get_name())
+            #return self.squadra2
+        else:
+            self.squadra2.set_state(False)
+            print("vinto: " + self.squadra1.get_name())
+            #return  self.squadra1
 
-    def add_componente2(self, str1):
-        self.giocatore2 = str1
-
-    def add_partita(self):
-        self.contatore_partiete += 1
-
-    def add_reti_segnate(self, n):
-        self.reti_segante += n
-
-    def add_reti_subite(self, n):
-        self.reti_subite += n
-
-    def set_state(self, b1):
-        self.state = b1
-
-    def get_name(self):
-        return self.nome
-    
-    def get_state(self):
-        return self.state
-
-    def get_stat(self):
-        
-        gol_segnati_partita = self.reti_segante / self.contatore_partiete
-        gol_subiti_partita = self.reti_subite / self.contatore_partiete
-        perc_vittoria = self.vittorie / self.contatore_partiete * 100
-
-        return gol_segnati_partita, gol_subiti_partita, perc_vittoria
-    
-    def __str__(self):
-        return f"{self.nome}"
-
-
-    
-       
-       
-       
-
+    def __str__(self) -> str:
+        return f"{self.squadra1}  vs {self.squadra2}"
