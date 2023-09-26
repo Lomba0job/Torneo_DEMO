@@ -41,3 +41,71 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    """
+    OUTPUT
+    
+---
+Fase Torne numero: 0
+
+girone destra:
+squadra10  vs squadra8
+vinto: squadra8
+
+girone sinistra:
+squadra1  vs squadra6
+vinto: squadra1
+
+girone destra:
+squadra4  vs squadra2
+vinto: squadra4
+
+girone sinistra:
+squadra9  vs squadra7
+vinto: squadra9
+
+girone destra:
+squadra11  vs squadra5
+vinto: squadra5
+
+girone sinistra:
+squadra0  vs squadra3
+vinto: squadra0
+
+fine della fase 0
+---
+
+
+---
+Fase Torne numero: 1
+
+girone destra:
+squadra8  vs squadra4
+vinto: squadra4
+
+girone sinistra:
+squadra1  vs squadra9
+vinto: squadra1
+
+fine della fase 1
+---
+
+
+---
+Fase Torne numero: 2
+
+girone destra:
+squadra4  vs squadra5
+vinto: squadra4
+
+girone sinistra:
+squadra1  vs squadra0
+vinto: squadra0
+
+fine della fase 2
+---
+
+squadra4  vs squadra0
+FIN£ TORNEO
+"""
