@@ -46,39 +46,47 @@ import math
 import numpy as np
 import time
 
-import squadra 
-import strutture as st
 
 
 
+class Ogg_partita(QWidget):
 
-class crea(QWidget):
 
-    def __init__(self, main):
+    reti_sq1 = 0 
+    reti_sq2 = 0
+
+    def __init__(self, s1, s2):
         super().__init__()
 
-        self.mainpage = main
-        l = QVBoxLayout()
-        grid_layout = QGridLayout()
-        # Creazione 
-        i = 0
-        for row in range(3):
-            for col in range(5):
-                i += 1
-                widget = squadra.Ogg_quadra()
-                grid_layout.addWidget(widget, row, col)
-                st.lista_squadre.append(widget)
-                nome_s = "squadra " +str(i)
-                widget.set_data(nome_s, "", "")
+        self.squadra1 = s1
+        self.squadra2 = s2
 
-        save = QPushButton()
-        save.setText("SALVA")
-        save.clicked.connect(self.save_f)
+        l_tempo = QHBoxLayout()
+        label_tempo = QLabel("TEMPO: ")
+        self.tempo = QLabel("10:00")
+        l_tempo.addWidget(label_tempo)
+        l_tempo.addWidget(self.tempo)
 
-        l.addLayout(grid_layout)
-        l.addWidget(save)
+        self.main_layout = QVBoxLayout()
+        self.main_layout.addLayout(l_tempo)
 
-        self.setLayout(l)
+        team = QHBoxLayout()
 
-    def save_f(self):
-        self.mainpage.cambia()
+        l_sq1 = QVBoxLayout()
+        l_sq1.addWidget(self.squadra1)
+        self.p1 = QLabel("0")
+        l_sq1.addWidget(self.p1)
+
+        l_sq2 = QVBoxLayout()
+        l_sq2.addWidget(self.squadra2)
+        self.p2 = QLabel("0")
+        l_sq2.addWidget(self.p2)
+
+        team.addLayout(l_sq1)
+        team.addLayout(l_sq2)
+
+        self.main_layout.addLayout(team)
+
+        self.setLayout(self.main_layout)
+
+    #def avvia(self):

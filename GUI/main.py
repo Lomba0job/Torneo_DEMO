@@ -43,9 +43,7 @@ from PyQt6.QtWidgets import (
 )
 import glob
 #import serial
-import pyqtgraph as pg
-from pyqtgraph import PlotWidget, plot, InfiniteLine
-from pyqtgraph.GraphicsScene import exportDialog
+
 import random
 import math
 #from modbus_IMA import ModBus
@@ -57,47 +55,50 @@ import os
 project_dir = os.path.dirname(os.path.abspath(os.getcwd()))
 sys.path.append(project_dir)
 
-lista_squadre =  []
 
-import creazioine_squadre
 import strutture as st
 
 st.struttura()
+
+import creazioine_squadre
+import tabellone
 
 class MainWindow(QMainWindow):
 
 
     def __init__(self):
-        super().__init__()
+        super().__init__()  
 
         current_monitor = get_monitors()[0]
         width = current_monitor.width
         height = current_monitor.height 
+        height = current_monitor.height 
+
+        height = current_monitor.height     
 
         self.resize(width, height)
-
         self.showMaximized()
-        self.setWindowTitle("APPLICAZIONE TORNEO")
 
-        self.layout = QStackedLayout()
+        self.setWindowTitle("APPLICAZIONE TORNEO")  
+
+        self.layout = QStackedLayout()  
 
         widgetCrea = creazioine_squadre.crea(self)
-        self.layout.addWidget(widgetCrea)    #pagina crea Squadre
+        self.layout.addWidget(widgetCrea)    #pagina crea Squadre   
 
-        widgetTorneo = QWidget()
-        self.layout.addWidget(widgetTorneo)    #pagina crea Torneo
+        
 
         self.layout.setCurrentIndex(0)
+  
 
         widget = QWidget()
-        widget.setLayout(self.layout)
+        widget.setLayout(self.layout)   
         self.setCentralWidget(widget)
 
-    
-
-
- 
-
+    def cambia(self):
+        widgetTorneo = tabellone.Crea_tab(self)
+        self.layout.addWidget(widgetTorneo)    #pagina crea Torneo  
+        self.layout.setCurrentIndex(1)
 
 
 app = QApplication(sys.argv)

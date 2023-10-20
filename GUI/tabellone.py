@@ -46,39 +46,28 @@ import math
 import numpy as np
 import time
 
-import squadra 
+import partita
 import strutture as st
 
 
 
 
-class crea(QWidget):
+class Crea_tab(QWidget):
 
     def __init__(self, main):
         super().__init__()
-
         self.mainpage = main
-        l = QVBoxLayout()
-        grid_layout = QGridLayout()
-        # Creazione 
-        i = 0
-        for row in range(3):
-            for col in range(5):
-                i += 1
-                widget = squadra.Ogg_quadra()
-                grid_layout.addWidget(widget, row, col)
-                st.lista_squadre.append(widget)
-                nome_s = "squadra " +str(i)
-                widget.set_data(nome_s, "", "")
+        layout = QVBoxLayout()
 
-        save = QPushButton()
-        save.setText("SALVA")
-        save.clicked.connect(self.save_f)
+        
 
-        l.addLayout(grid_layout)
-        l.addWidget(save)
+        p1 = partita.Ogg_partita(st.lista_squadre[0], st.lista_squadre[1])
+        p2 = partita.Ogg_partita(st.lista_squadre[2], st.lista_squadre[3])
 
-        self.setLayout(l)
+        layout.addStretch(1)
+        layout.addWidget(p1)
+        layout.addWidget(p2)
+        layout.addStretch(1)
 
-    def save_f(self):
-        self.mainpage.cambia()
+
+        self.setLayout(layout)
