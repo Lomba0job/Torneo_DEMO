@@ -50,12 +50,15 @@ import add
 
 
 
-
 class Ogg_quadra(QWidget):
 
     nome_squadra = ""
     nome_giocatore1 = ""
     nome_giocatore2 = ""
+
+    reti_eff = 0
+    reti_sub = 0
+    punti = 0
 
     def __init__(self):
         super().__init__()
@@ -74,6 +77,15 @@ class Ogg_quadra(QWidget):
         self.nome_giocatore2 = nome_G2
 
         self.nomeSquadra.setText(self.nome_squadra)
+
+    def add_rete_eff(self):
+        self.reti_eff += 1
+
+    def add_rete_sub(self):
+        self.reti_sub += 1
+
+    def calcola_punti(self):
+        self.punti = self.reti_eff - self.reti_sub
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:

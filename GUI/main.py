@@ -57,15 +57,18 @@ import os
 project_dir = os.path.dirname(os.path.abspath(os.getcwd()))
 sys.path.append(project_dir)
 
+lista_squadre =  []
 
-import squadra
+import creazioine_squadre
+import strutture as st
+
+st.struttura()
 
 class MainWindow(QMainWindow):
 
 
     def __init__(self):
         super().__init__()
-        # init modbus client
 
         current_monitor = get_monitors()[0]
         width = current_monitor.width
@@ -76,44 +79,18 @@ class MainWindow(QMainWindow):
         self.showMaximized()
         self.setWindowTitle("APPLICAZIONE TORNEO")
 
-        layout = QVBoxLayout()
+        self.layout = QStackedLayout()
 
-        lh = QHBoxLayout()
-        widg1 = squadra.Ogg_quadra()
-        widg2 = squadra.Ogg_quadra()
-        widg3 = squadra.Ogg_quadra()
-        widg4 = squadra.Ogg_quadra()
-        lh.addWidget(widg1)
-        lh.addWidget(widg2)
-        lh.addWidget(widg3)
-        lh.addWidget(widg4)
+        widgetCrea = creazioine_squadre.crea(self)
+        self.layout.addWidget(widgetCrea)    #pagina crea Squadre
 
-        lh1 = QHBoxLayout()
-        widg11 = squadra.Ogg_quadra()
-        widg12 = squadra.Ogg_quadra()
-        widg13 = squadra.Ogg_quadra()
-        widg14 = squadra.Ogg_quadra()
-        lh1.addWidget(widg11)
-        lh1.addWidget(widg12)
-        lh1.addWidget(widg13)
-        lh1.addWidget(widg14)    
+        widgetTorneo = QWidget()
+        self.layout.addWidget(widgetTorneo)    #pagina crea Torneo
 
-        lh2 = QHBoxLayout()
-        widg21 = squadra.Ogg_quadra()
-        widg22 = squadra.Ogg_quadra()
-        widg23 = squadra.Ogg_quadra()
-        widg24 = squadra.Ogg_quadra()
-        lh2.addWidget(widg21)
-        lh2.addWidget(widg22)
-        lh2.addWidget(widg23)
-        lh2.addWidget(widg24)      
-
-        layout.addLayout(lh)
-        layout.addLayout(lh1)
-        layout.addLayout(lh2)
+        self.layout.setCurrentIndex(0)
 
         widget = QWidget()
-        widget.setLayout(layout)
+        widget.setLayout(self.layout)
         self.setCentralWidget(widget)
 
     
