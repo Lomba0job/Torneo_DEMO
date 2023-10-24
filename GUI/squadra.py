@@ -47,6 +47,7 @@ import numpy as np
 import time
 
 import add 
+import strutture as st
 
 
 
@@ -83,6 +84,16 @@ class Ogg_quadra(QWidget):
 
     def add_rete_sub(self):
         self.reti_sub += 1
+
+    def rem_rete_eff(self):
+        self.reti_eff -= 1
+
+    def rem_rete_sub(self):
+        self.reti_sub -= 1
+
+    def get_nome_squadra(self):
+        return self.nome_squadra
+    
 
     def calcola_punti(self):
         self.punti = self.reti_eff - self.reti_sub

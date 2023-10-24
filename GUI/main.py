@@ -71,9 +71,6 @@ class MainWindow(QMainWindow):
 
         current_monitor = get_monitors()[0]
         width = current_monitor.width
-        height = current_monitor.height 
-        height = current_monitor.height 
-
         height = current_monitor.height     
 
         self.resize(width, height)
