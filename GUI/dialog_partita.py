@@ -59,8 +59,8 @@ class Connection_dialog(QDialog):
 
         titolo = QLabel(self.main.get_nome_p())
 
-        avvia = QPushButton("AVVIA PARTITA")
-        avvia.clicked.connect(self.start)
+        self.avvia = QPushButton("AVVIA PARTITA")
+        self.avvia.clicked.connect(self.start)
 
         l = QVBoxLayout()
         l1 = QHBoxLayout()
@@ -84,13 +84,14 @@ class Connection_dialog(QDialog):
         l.addLayout(l2)
 
         main_layout.addWidget(titolo)
-        main_layout.addWidget(avvia)
+        main_layout.addWidget(self.avvia)
         main_layout.addLayout(l)
 
         self.setLayout(main_layout)
         
     def start(self):
         self.main.start_t()
+        self.avvia.hide()
 
     def segna1(self):
         self.main.segna_rete(1)

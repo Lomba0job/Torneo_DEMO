@@ -48,6 +48,7 @@ import time
 
 
 import dialog_partita as add
+import strutture as st
 
 class Ogg_partita(QWidget):
 
@@ -58,9 +59,9 @@ class Ogg_partita(QWidget):
 
     stato = 0 
 
-    def __init__(self, s1, s2):
+    def __init__(self, main, s1, s2):
         super().__init__()
-
+        self.main_page = main
         self.time_left = QTime(0, 0, 20)
         self.timer = QTimer()
         self.timer.timeout.connect(self.update)
@@ -100,6 +101,7 @@ class Ogg_partita(QWidget):
 
     def start_t(self):
         self.timer.start(1000)
+        self.main_page.partita_incorso()
 
     def update(self):
         self.time_left = self.time_left.addSecs(-1)
@@ -123,8 +125,8 @@ class Ogg_partita(QWidget):
         elif(n == 2):
             self.reti_sq2 += 1
             self.p2.setText(str(self.reti_sq2))
-            self.squadra1.add_rete_eff()
-            self.squadra2.add_rete_sub()
+            self.squadra2.add_rete_eff()
+            self.squadra1.add_rete_sub()
 
     def desegna_rete(self, n):
         print(n)
@@ -136,14 +138,16 @@ class Ogg_partita(QWidget):
         elif(n == 2):
             self.reti_sq2 -= 1
             self.p2.setText(str(self.reti_sq2))
-            self.squadra1.rem_rete_eff()
-            self.squadra2.rem_rete_sub()
+            self.squadra2.rem_rete_eff()
+            self.squadra1.rem_rete_sub()
 
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
-            dialog_1 = add.Connection_dialog(self)
-            dialog_1.exec()
+            if(st.stato == 0):
+                print("premuto")
+                dialog_1 = add.Connection_dialog(self)
+                dialog_1.exec()
 
     def remove_items(self, layout):
         for i in reversed(range(layout.count())):
@@ -172,4 +176,8 @@ class Ogg_partita(QWidget):
         
         self.main_layout.addWidget(titolo)
         self.main_layout.addWidget(punt)
+
+        self.squadra1.calcola_punti()
+        self.squadra2.calcola_punti()
                 
+        self.main_page.aggiorna_classifica()

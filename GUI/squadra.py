@@ -91,15 +91,20 @@ class Ogg_quadra(QWidget):
     def rem_rete_sub(self):
         self.reti_sub -= 1
 
+    def calcola_punti(self):
+        self.punti = self.reti_eff - self.reti_sub
+
+
     def get_nome_squadra(self):
         return self.nome_squadra
     
 
-    def calcola_punti(self):
-        self.punti = self.reti_eff - self.reti_sub
-
+    def get_punti_squadra(self):
+        return self.punti
+    
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
+            print(st.stato)
             dialog_1 = add.Connection_dialog(self, self.nome_squadra, self.nome_giocatore1, self.nome_giocatore2)
             dialog_1.exec()
     
