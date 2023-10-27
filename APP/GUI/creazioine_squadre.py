@@ -60,7 +60,7 @@ class crea(QWidget):
         grid_layout = QGridLayout()
         # Creazione 
         i = 0
-        for row in range(3):
+        for row in range(2):
             for col in range(5):
                 i += 1
                 widget = squadra.Ogg_quadra()

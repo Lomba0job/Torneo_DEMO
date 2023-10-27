@@ -42,6 +42,8 @@ import math
 import numpy as np
 import time
 
+import strutture as st
+
 
 class Connection_dialog(QDialog):
 
@@ -85,6 +87,8 @@ class Connection_dialog(QDialog):
         main_layout.addWidget(self.avvia)
         main_layout.addLayout(l)
 
+        if st.n_p is self.main:
+            self.avvia.hide()
         self.setLayout(main_layout)
         
     def start(self):

@@ -60,7 +60,7 @@ class Ogg_partita(QWidget):
     def __init__(self, main, s1, s2):
         super().__init__()
         self.main_page = main
-        self.time_left = QTime(0, 0, 20)
+        self.time_left = QTime(0, 0, 5)
         self.timer = QTimer()
         self.timer.timeout.connect(self.update)
 
@@ -99,7 +99,7 @@ class Ogg_partita(QWidget):
 
     def start_t(self):
         self.timer.start(1000)
-        self.main_page.partita_incorso()
+        self.main_page.partita_incorso(self)
 
     def update(self):
         self.time_left = self.time_left.addSecs(-1)
@@ -142,10 +142,12 @@ class Ogg_partita(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
-            if(st.stato == 0):
-                print("premuto")
+            if(st.n_p is self or st.stato == 0):
+                #print("premuto")            #TEST
                 dialog_1 = add.Connection_dialog(self)
                 dialog_1.exec()
+            #else:
+                #print("wdget sbagliato" + str(self))  #TEST
 
     def remove_items(self, layout):
         for i in reversed(range(layout.count())):
@@ -179,3 +181,4 @@ class Ogg_partita(QWidget):
         self.squadra2.calcola_punti()
                 
         self.main_page.aggiorna_classifica()
+        self.main_page.partita_finita()
