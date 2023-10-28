@@ -60,24 +60,21 @@ class Crea_tab(QWidget):
         layout = QVBoxLayout()
         layout.addStretch(1)
 
-        def split_and_shuffle(lst):
+        def split_and_shuffle(lst): 
             random.shuffle(lst)
             half = len(lst) // 2
+            print(half)
             return lst[:half], lst[half:]
 
         random.shuffle(st.lista_squadre)
         list1, list2 = split_and_shuffle(st.lista_squadre)
-        
-        for n in range(len(list1)-1):
-            if(list1[n] != None and list1[n+1] != None):
-                p1 = partita.Ogg_partita(self, list1[n], list1[n+1])
-                layout.addWidget(p1)
+ 
 
-        for n in range(len(list2)-1):
-            if(list2[n] != None and list2[n+1] != None):
-                p1 = partita.Ogg_partita(self, list2[n], list2[n+1])
-                layout.addWidget(p1)
-
+        n = 0
+        for n in range(len(list1)):
+            p1 = partita.Ogg_partita(self, list1[n], list2[n])
+            layout.addWidget(p1)
+       
 
         self.classi = classifica.Crea_clas(self)
 
@@ -94,10 +91,7 @@ class Crea_tab(QWidget):
         st.stato = 1
         st.n_p = p
 
-    def partita_finita(self, p):
+    def partita_finita(self):
         st.stato = 0
         st.n_p = 0 
         
-
-    def partita_finita(self):
-        st.stato = 0
