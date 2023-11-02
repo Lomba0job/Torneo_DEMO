@@ -117,27 +117,36 @@ class Ogg_partita(QWidget):
         print(n)
         if (n == 1): #squadra 1
             self.reti_sq1 += 1
-            self.p1.setText(str(self.reti_sq1))
             self.squadra1.add_rete_eff()
             self.squadra2.add_rete_sub()
+            if (self.time_left > QTime(0, 0, 0)):
+                self.p1.setText(str(self.reti_sq1))
+            self.main_page.aggiorna_classifica()
         elif(n == 2):
             self.reti_sq2 += 1
-            self.p2.setText(str(self.reti_sq2))
             self.squadra2.add_rete_eff()
             self.squadra1.add_rete_sub()
+            if (self.time_left > QTime(0, 0, 0)):
+                self.p2.setText(str(self.reti_sq2))
+            self.main_page.aggiorna_classifica()
 
     def desegna_rete(self, n):
         print(n)
         if (n == 1): #squadra 1
             self.reti_sq1 -= 1
-            self.p1.setText(str(self.reti_sq1))
             self.squadra1.rem_rete_eff()
             self.squadra2.rem_rete_sub()
+            if (self.time_left > QTime(0, 0, 0)):
+                self.p1.setText(str(self.reti_sq1))
+            self.main_page.aggiorna_classifica()
+
         elif(n == 2):
             self.reti_sq2 -= 1
-            self.p2.setText(str(self.reti_sq2))
             self.squadra2.rem_rete_eff()
             self.squadra1.rem_rete_sub()
+            if (self.time_left > QTime(0, 0, 0)):
+                self.p2.setText(str(self.reti_sq2))
+            self.main_page.aggiorna_classifica()
 
 
     def mousePressEvent(self, event):
@@ -180,5 +189,4 @@ class Ogg_partita(QWidget):
         self.squadra1.calcola_punti()
         self.squadra2.calcola_punti()
                 
-        self.main_page.aggiorna_classifica()
         self.main_page.partita_finita()
