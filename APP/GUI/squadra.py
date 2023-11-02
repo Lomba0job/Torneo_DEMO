@@ -79,15 +79,19 @@ class Ogg_quadra(QWidget):
 
     def add_rete_eff(self):
         self.reti_eff += 1
+        self.calcola_punti()
 
     def add_rete_sub(self):
         self.reti_sub += 1
+        self.calcola_punti()
 
     def rem_rete_eff(self):
         self.reti_eff -= 1
+        self.calcola_punti()
 
     def rem_rete_sub(self):
         self.reti_sub -= 1
+        self.calcola_punti()
 
     def calcola_punti(self):
         self.punti = self.reti_eff - self.reti_sub

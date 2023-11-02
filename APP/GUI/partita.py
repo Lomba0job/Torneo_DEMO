@@ -54,7 +54,8 @@ class Ogg_partita(QWidget):
 
     reti_sq1 = 0        #reti della partita  
     reti_sq2 = 0        #reti della partita 
-
+    
+    giocata = 0
     stato = 0 
 
     def __init__(self, main, s1, s2):
@@ -121,6 +122,8 @@ class Ogg_partita(QWidget):
             self.squadra2.add_rete_sub()
             if (self.time_left > QTime(0, 0, 0)):
                 self.p1.setText(str(self.reti_sq1))
+            else:
+                self.end_ui()
             self.main_page.aggiorna_classifica()
         elif(n == 2):
             self.reti_sq2 += 1
@@ -128,6 +131,8 @@ class Ogg_partita(QWidget):
             self.squadra1.add_rete_sub()
             if (self.time_left > QTime(0, 0, 0)):
                 self.p2.setText(str(self.reti_sq2))
+            else:
+                self.end_ui()
             self.main_page.aggiorna_classifica()
 
     def desegna_rete(self, n):
@@ -138,6 +143,8 @@ class Ogg_partita(QWidget):
             self.squadra2.rem_rete_sub()
             if (self.time_left > QTime(0, 0, 0)):
                 self.p1.setText(str(self.reti_sq1))
+            else:
+                self.end_ui()
             self.main_page.aggiorna_classifica()
 
         elif(n == 2):
@@ -146,17 +153,21 @@ class Ogg_partita(QWidget):
             self.squadra1.rem_rete_sub()
             if (self.time_left > QTime(0, 0, 0)):
                 self.p2.setText(str(self.reti_sq2))
+            else:
+                self.end_ui()
             self.main_page.aggiorna_classifica()
 
 
     def mousePressEvent(self, event):
         if event.button() == Qt.MouseButton.LeftButton:
-            if(st.n_p is self or st.stato == 0):
-                #print("premuto")            #TEST
-                dialog_1 = add.Connection_dialog(self)
-                dialog_1.exec()
-            #else:
-                #print("wdget sbagliato" + str(self))  #TEST
+            if(self.giocata == 0):
+                if(st.n_p is self or st.stato == 0):
+                    #print("premuto")            #TEST
+                    self.dialog_1 = add.Connection_dialog(self)
+                    self.dialog_1.exec()
+            else:
+                dialog = add.Connection_dialog_end(self)
+                dialog.exec()
 
     def remove_items(self, layout):
         for i in reversed(range(layout.count())):
@@ -169,24 +180,39 @@ class Ogg_partita(QWidget):
 
     def end_partita(self):
         self.timer.stop()
+
+        self.end_ui()
+        
+        self.main_page.partita_finita()
+        self.giocata=1
+        
+        
+    def end_ui(self):
         self.remove_items(self.main_layout)
         self.main_layout.update()
         
         if (self.reti_sq1 > self.reti_sq2):
-            vincitore = "VINCITORE: " + self.squadra1.get_nome_squadra()
+            vincitore = self.squadra1.get_nome_squadra()
             punteggio = str(self.reti_sq1) + " a " + str(self.reti_sq2)
+            perdente = self.squadra2.get_nome_squadra()
 
         else:
-            vincitore = "VINCITORE: " + self.squadra2.get_nome_squadra()
+            vincitore =  self.squadra2.get_nome_squadra()
             punteggio = str(self.reti_sq2) + " a " + str(self.reti_sq1)
+            perdente = self.squadra1.get_nome_squadra()
 
         titolo = QLabel(vincitore)
+        titolo.setObjectName("win")
         punt = QLabel(punteggio)
+        punt.setObjectName("punt")
+        sub = QLabel(perdente)
+        sub.setObjectName("lose")
         
         self.main_layout.addWidget(titolo)
         self.main_layout.addWidget(punt)
+        self.main_layout.addWidget(sub)
 
+        #! ECCESSIVA
         self.squadra1.calcola_punti()
         self.squadra2.calcola_punti()
                 
-        self.main_page.partita_finita()
